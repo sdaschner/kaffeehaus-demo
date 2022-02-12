@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kaffeehaus
+spec:
+  selector:
+    app: kaffeehaus
+  ports:
+  - port: 8080
+---
+

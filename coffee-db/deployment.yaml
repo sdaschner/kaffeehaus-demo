@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: coffee-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coffee-db
+  template:
+    metadata:
+      labels:
+        app: coffee-db
+    spec:
+      containers:
+      - name: coffee-db
+        image: postgres:9.5
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+      restartPolicy: Always
+---

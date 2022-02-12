@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: coffee-db
+spec:
+  selector:
+    app: coffee-db
+  ports:
+  - port: 5432
+---

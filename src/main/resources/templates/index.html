@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Orders - Kaffeehaus</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<h1>Welcome to our Kaffeehaus ☕</h1>
+
+<h2>All coffee orders</h2>
+
+<p><a href="/order.html">Create coffee order</a></p>
+
+<table>
+    <tr>
+        <th>Created</th>
+        <th>Type</th>
+        <th>Origin</th>
+    </tr>
+    {#for order in orders}
+    <tr>
+        <td>{instant:format(order.created)}</td>
+        <td>{order.type.description}</td>
+        <td>{order.origin.name}</td>
+    </tr>
+    {/for}
+</table>
+
+</body>
+</html>
