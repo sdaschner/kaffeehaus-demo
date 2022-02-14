@@ -1,6 +1,10 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
+  labels:
+    app: coffee-db
+    app.kubernetes.io/component: coffee-db
+    app.kubernetes.io/instance: coffee-db
   name: coffee-db
 spec:
   selector:
