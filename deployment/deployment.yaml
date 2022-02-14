@@ -16,12 +16,11 @@ spec:
     spec:
       containers:
       - name: kaffeehaus
-        image: sdaschner/kaffeehaus:quarkus-testing-1
+        image: sdaschner/kaffeehaus:1
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
-            path: /
+            path: /q/health
             port: 8080
       restartPolicy: Always
 ---
-
