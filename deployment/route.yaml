@@ -1,10 +1,11 @@
+apiVersion: route.openshift.io/v1
 kind: Route
-apiVersion: v1
 metadata:
   name: kaffeehaus
 spec:
   #  host: kaffeehaus.openshift.example.com
   tls:
+    insecureEdgeTerminationPolicy: Redirect
     termination: edge
   to:
     kind: Service
