@@ -1,6 +1,8 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"kaffeehaus:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"kaffeehaus\")].image"}]'
   name: kaffeehaus
 spec:
   replicas: 1
@@ -16,7 +18,14 @@ spec:
     spec:
       containers:
       - name: kaffeehaus
-        image: sdaschner/kaffeehaus:1
+        image: kaffeehaus:latest
+        env:
+        - name: QUARKUS_DATASOURCE_USERNAME
+          value: dbuser
+        - name: QUARKUS_DATASOURCE_PASSWORD
+          value: dbpass
+        - name: QUARKUS_DATASOURCE_JDBC_URL
+          value: jdbc:postgresql://coffee-db:5432/db
         imagePullPolicy: Always
         readinessProbe:
           httpGet:

@@ -1,6 +1,10 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
+  labels:
+    app: coffee-db
+    app.kubernetes.io/component: coffee-db
+    app.kubernetes.io/instance: coffee-db
   name: coffee-db
 spec:
   replicas: 1
@@ -13,13 +17,19 @@ spec:
         app: coffee-db
     spec:
       containers:
-      - name: coffee-db
-        image: postgres:9.5
-        imagePullPolicy: Always
+      - name: postgresql
         env:
-        - name: POSTGRES_USER
-          value: postgres
-        - name: POSTGRES_PASSWORD
-          value: postgres
+        - name: POSTGRESQL_USER
+          value: dbuser
+        - name: POSTGRESQL_PASSWORD
+          value: dbpass
+        - name: POSTGRESQL_DATABASE
+          value: db
+        - name: POSTGRESQL_ADMIN_PASSWORD
+          value: admin!
+        image: registry.redhat.io/rhel8/postgresql-96:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5432
+          protocol: TCP
       restartPolicy: Always
----
