@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,13 +71,6 @@ public class OrdersResource {
     }
 
     private URI buildUri(Order order) {
-        Iterator<String> iterator = request.getHeaderNames().asIterator();
-        while (iterator.hasNext()) {
-            String name = iterator.next();
-            System.out.println("header: " + name + ": " + request.getHeader(name));
-            System.out.println("scheme: " + request.getScheme() + ", URI: " + request.getRequestURI());
-        }
-
         return baseUriBuilder(request)
                 .path(OrdersResource.class)
                 .path(OrdersResource.class, "getOrder")
