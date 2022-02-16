@@ -70,6 +70,7 @@ public class OrdersResource {
 
     private URI buildUri(Order order) {
         return uriInfo.getBaseUriBuilder()
+                .scheme(request.getScheme())
                 .host(request.getServerName())
                 .port(request.getServerPort())
                 .path(OrdersResource.class)
