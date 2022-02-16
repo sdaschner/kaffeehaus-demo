@@ -9,7 +9,6 @@ import com.example.kaffeehaus.orders.entity.Origin;
 import javax.enterprise.context.ApplicationScoped;
 import javax.json.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -17,23 +16,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.kaffeehaus.orders.control.LinkBuilder.baseUriBuilder;
 import static com.example.kaffeehaus.orders.control.StringExtensions.capitalize;
 
 @ApplicationScoped
 public class EntityBuilder {
 
-    public JsonArray buildOrders(List<Order> orders, UriInfo uriInfo, HttpServletRequest request) {
+    public JsonArray buildOrders(List<Order> orders, HttpServletRequest request) {
         return orders.stream()
-                .map(o -> buildOrderTeaser(o, uriInfo, request))
+                .map(o -> buildOrderTeaser(o, request))
                 .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add)
                 .build();
     }
 
-    private JsonObject buildOrderTeaser(Order order, UriInfo uriInfo, HttpServletRequest request) {
+    private JsonObject buildOrderTeaser(Order order, HttpServletRequest request) {
         return Json.createObjectBuilder()
-                .add("_self", uriInfo.getBaseUriBuilder()
-                        .host(request.getServerName())
-                        .port(request.getServerPort())
+                .add("_self", baseUriBuilder(request)
                         .path(OrdersResource.class)
                         .path(OrdersResource.class, "getOrder")
                         .build(order.getId())
@@ -58,9 +56,9 @@ public class EntityBuilder {
         return new Order(UUID.randomUUID(), type, origin);
     }
 
-    public JsonObject buildIndex(UriInfo uriInfo) {
-        final URI typesUri = uriInfo.getBaseUriBuilder().path(TypesResource.class).build();
-        final URI ordersUri = uriInfo.getBaseUriBuilder().path(OrdersResource.class).build();
+    public JsonObject buildIndex(HttpServletRequest request) {
+        final URI typesUri = baseUriBuilder(request).path(TypesResource.class).build();
+        final URI ordersUri = baseUriBuilder(request).path(OrdersResource.class).build();
         return Json.createObjectBuilder()
                 .add("_links", Json.createObjectBuilder()
                         .add("types", typesUri.toString()))
@@ -79,8 +77,8 @@ public class EntityBuilder {
                 .build();
     }
 
-    public JsonObject buildOrigin(UriInfo uriInfo, Origin origin, CoffeeType type) {
-        final URI ordersUri = uriInfo.getBaseUriBuilder().path(OrdersResource.class).build();
+    public JsonObject buildOrigin(HttpServletRequest request, Origin origin, CoffeeType type) {
+        final URI ordersUri = baseUriBuilder(request).path(OrdersResource.class).build();
         return Json.createObjectBuilder()
                 .add("origin", origin.getName())
                 .add("_actions", Json.createObjectBuilder()
@@ -98,11 +96,11 @@ public class EntityBuilder {
                 .build();
     }
 
-    public JsonObjectBuilder buildType(CoffeeType type, UriInfo uriInfo) {
+    public JsonObjectBuilder buildType(CoffeeType type, HttpServletRequest request) {
         return Json.createObjectBuilder()
                 .add("type", capitalize(type.name()))
                 .add("_links", Json.createObjectBuilder()
-                        .add("origins", uriInfo.getBaseUriBuilder()
+                        .add("origins", baseUriBuilder(request)
                                 .path(TypesResource.class)
                                 .path(TypesResource.class, "originsResource")
                                 .build(type).toString().toLowerCase()));

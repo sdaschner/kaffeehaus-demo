@@ -9,12 +9,12 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 
 @Produces(MediaType.APPLICATION_JSON)
 @RequestScoped
@@ -28,7 +28,7 @@ public class OriginsResource {
     CoffeeType type;
 
     @Context
-    UriInfo uriInfo;
+    HttpServletRequest request;
 
     @Inject
     EntityBuilder entityBuilder;
@@ -36,7 +36,7 @@ public class OriginsResource {
     @GET
     public JsonArray getOrigins() {
         return coffeeShop.getOrigins(type).stream()
-                .map(o -> entityBuilder.buildOrigin(uriInfo, o, type))
+                .map(o -> entityBuilder.buildOrigin(request, o, type))
                 .collect(Json::createArrayBuilder, JsonArrayBuilder::add, JsonArrayBuilder::add).build();
     }
 
