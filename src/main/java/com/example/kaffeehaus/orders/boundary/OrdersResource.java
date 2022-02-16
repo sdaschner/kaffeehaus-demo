@@ -19,6 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.kaffeehaus.orders.control.LinkBuilder.baseUriBuilder;
+
 @Path("orders")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -77,10 +79,7 @@ public class OrdersResource {
             System.out.println("scheme: " + request.getScheme() + ", URI: " + request.getRequestURI());
         }
 
-        return uriInfo.getBaseUriBuilder()
-                .scheme(request.getScheme())
-                .host(request.getServerName())
-                .port(request.getServerPort())
+        return baseUriBuilder(request)
                 .path(OrdersResource.class)
                 .path(OrdersResource.class, "getOrder")
                 .build(order.getId());
