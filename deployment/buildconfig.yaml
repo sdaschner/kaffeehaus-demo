@@ -58,8 +58,8 @@ items:
     resources: {}
     source:
       git:
-        ref: openshift
-        uri: https://github.com/thikade/kaffeehaus-demo
+        ref: main
+        uri: https://github.com/sdaschner/kaffeehaus-demo
       type: Git
     strategy:
       dockerStrategy:
