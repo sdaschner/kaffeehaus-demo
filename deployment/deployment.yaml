@@ -26,6 +26,9 @@ spec:
           value: dbpass
         - name: QUARKUS_DATASOURCE_JDBC_URL
           value: jdbc:postgresql://coffee-db:5432/db
+        envFrom:
+          - configMapRef:
+              name: kaffeehaus-config
         imagePullPolicy: Always
         readinessProbe:
           httpGet:

@@ -5,6 +5,7 @@ import io.quarkus.qute.Location;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateExtension;
 import io.quarkus.qute.TemplateInstance;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -26,10 +27,13 @@ public class IndexController {
     @Location("index.html")
     Template index;
 
+    @ConfigProperty(name = "kaffeehaus.greeting")
+    String greeting;
+
     @GET
     public TemplateInstance index() {
         List<Order> orders = coffeeShop.getOrders();
-        return index.data("orders", orders);
+        return index.data("orders", orders, "greeting", greeting);
     }
 
     @TemplateExtension(namespace = "instant")

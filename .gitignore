@@ -11,3 +11,5 @@ release.properties
 
 *.log
 *.jar
+
+*.tmp
