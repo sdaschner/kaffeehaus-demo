@@ -2,4 +2,4 @@
 
 Build and run with `build.sh` &amp; `run-local.sh`
 
-Goto http://localhost:8080/index.html and try
+Goto http://localhost:8080/index.html and try.
