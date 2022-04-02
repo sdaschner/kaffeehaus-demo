@@ -12,12 +12,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Path("index.html")
+@Path("/")
 @Produces(MediaType.TEXT_HTML)
 public class IndexController {
 
@@ -31,6 +33,12 @@ public class IndexController {
     String greeting;
 
     @GET
+    public Response root() {
+        return Response.seeOther(URI.create("/index.html")).build();
+    }
+
+    @GET
+    @Path("index.html")
     public TemplateInstance index() {
         List<Order> orders = coffeeShop.getOrders();
         return index.data("orders", orders, "greeting", greeting);

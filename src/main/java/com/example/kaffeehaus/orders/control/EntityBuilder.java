@@ -56,27 +56,6 @@ public class EntityBuilder {
         return new Order(UUID.randomUUID(), type, origin);
     }
 
-    public JsonObject buildIndex(HttpServletRequest request) {
-        final URI typesUri = baseUriBuilder(request).path(TypesResource.class).build();
-        final URI ordersUri = baseUriBuilder(request).path(OrdersResource.class).build();
-        return Json.createObjectBuilder()
-                .add("_links", Json.createObjectBuilder()
-                        .add("types", typesUri.toString()))
-                .add("_actions", Json.createObjectBuilder()
-                        .add("order-coffee", Json.createObjectBuilder()
-                                .add("method", "POST")
-                                .add("href", ordersUri.toString())
-                                .add("fields", Json.createArrayBuilder()
-                                        .add(Json.createObjectBuilder()
-                                                .add("name", "type")
-                                                .add("type", "text"))
-                                        .add(Json.createObjectBuilder()
-                                                .add("name", "origin")
-                                                .add("type", "text"))
-                                )))
-                .build();
-    }
-
     public JsonObject buildOrigin(HttpServletRequest request, Origin origin, CoffeeType type) {
         final URI ordersUri = baseUriBuilder(request).path(OrdersResource.class).build();
         return Json.createObjectBuilder()

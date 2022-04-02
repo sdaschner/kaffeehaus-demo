@@ -4,7 +4,7 @@ metadata:
   name: kaffeehaus
 spec:
   #  host: kaffeehaus.openshift.example.com
-  path: /index.html
+  path: /
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
