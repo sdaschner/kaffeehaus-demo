@@ -1,15 +1,15 @@
 --
 -- insert data
 
-INSERT INTO origins VALUES ('Ethiopia');
-INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'ESPRESSO');
-INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'MELANGE');
-INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'FILTER');
+INSERT INTO origins VALUES ('Ethiopia') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'ESPRESSO') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'MELANGE') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Ethiopia', 'FILTER') ON CONFLICT DO NOTHING;
 
-INSERT INTO origins VALUES ('Colombia');
-INSERT INTO origin_coffee_types VALUES ('Colombia', 'ESPRESSO');
-INSERT INTO origin_coffee_types VALUES ('Colombia', 'FILTER');
+INSERT INTO origins VALUES ('Colombia') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Colombia', 'ESPRESSO') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Colombia', 'FILTER') ON CONFLICT DO NOTHING;
 
-INSERT INTO origins VALUES ('Brazil');
-INSERT INTO origin_coffee_types VALUES ('Brazil', 'ESPRESSO');
-INSERT INTO origin_coffee_types VALUES ('Brazil', 'MELANGE');
+INSERT INTO origins VALUES ('Brazil') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Brazil', 'ESPRESSO') ON CONFLICT DO NOTHING;
+INSERT INTO origin_coffee_types VALUES ('Brazil', 'MELANGE') ON CONFLICT DO NOTHING;
