@@ -32,4 +32,11 @@ spec:
         ports:
         - containerPort: 5432
           protocol: TCP
+        volumeMounts:
+          - mountPath: /var/lib/pgsql/data
+            name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: coffee-db-claim
       restartPolicy: Always
